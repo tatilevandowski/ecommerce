@@ -1,3 +1,5 @@
+import com.sun.beans.editors.DoubleEditor;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -7,12 +9,17 @@ public class CarrinhoCompras {
     Integer codProduto;
     Integer quantidade;
     Date dataEmissao;
+    Double precoTotal;
 
     public CarrinhoCompras(Integer numeroCarrinho, Integer codProduto, Integer quantidade, Date dataEmissao) {
         this.numeroCarrinho = numeroCarrinho;
         this.codProduto = codProduto;
         this.quantidade = quantidade;
         this.dataEmissao = dataEmissao;
+    }
+
+    public CarrinhoCompras() {
+
     }
 
     public Integer getNumeroCarrinho() {
@@ -48,7 +55,7 @@ public class CarrinhoCompras {
     }
 
 
-    public Integer atualizarQuantidade(Integer quantidadeAdicional) {
+    public Integer atualizarQuantidade(Integer quantidadeAdicional, Integer novaQuantidade) {
         if (quantidadeAdicional == null || quantidadeAdicional <= 0) {
             System.out.println("Erro: Quantidade adicional deve ser positiva.");
             return -1; // Indica erro
@@ -61,17 +68,22 @@ public class CarrinhoCompras {
     }
 
     public void ItemCarrinho(Integer produto, Integer quantidade) {
-        if (produto == null) {
-            throw new IllegalArgumentException("Produto não pode ser nulo para ItemCarrinho.");
-        }
-        if (quantidade == null || quantidade <= 0) {
-            throw new IllegalArgumentException("Quantidade deve ser positiva para ItemCarrinho.");
-        }
-        this.codProduto = produto;
-        this.quantidade = quantidade;
+
     }
     public List<CarrinhoCompras> getItensDoPedido() {
         List<CarrinhoCompras> itensDoPedido = Collections.emptyList();
         return itensDoPedido; }
 
+    public void exibirCarrinho() {
+    }
+
+    public void limparCarrinho() {
+    }
+
+    public double calcularTotalCarrinho() {
+        return precoTotal;
+    }
+
+    public void removerProdutoCarrinho(Integer codProduto) {
+    }
 }

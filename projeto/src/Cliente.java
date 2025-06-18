@@ -130,6 +130,10 @@ public class Cliente {
     public void setUfCliente(String ufCliente){
         this.ufCliente = ufCliente;
     }
+
+    public boolean logarCliente(String email, String senha) {
+        return true;
+    }
 }
 
 

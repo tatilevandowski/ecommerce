@@ -5,13 +5,12 @@ public class Produtos {
     String tamanhoProduto;
     String corProduto;
 
-    public Integer Produto(Integer id, String nome, Double preco, String tamanho, String cor) {
-        this.codigoProduto = id;
-        this.nomeProduto = nome;
-        this.precoProduto = preco;
-        this.tamanhoProduto = tamanho;
-        this.corProduto = cor;
-        return codigoProduto;
+    public  Produtos(int i, String camisetaBásica, double v, String m, String branca) {
+        this.codigoProduto = i;
+        this.nomeProduto = camisetaBásica;
+        this.precoProduto = v;
+        this.tamanhoProduto = m;
+        this.corProduto = branca;
     }
 
     public String getNomeProduto() {
@@ -51,6 +50,10 @@ public class Produtos {
 
     public void setCorProduto(String corProduto) {
         this.corProduto = corProduto;
+    }
+
+    public void exibirDetalhes() {
+
     }
 }
 
