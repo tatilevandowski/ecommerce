@@ -1,89 +1,107 @@
-import com.sun.beans.editors.DoubleEditor;
-
-import java.util.Collections;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarrinhoCompras {
-    Integer numeroCarrinho;
-    Integer codProduto;
-    Integer quantidade;
-    Date dataEmissao;
-    Double precoTotal;
-
-    public CarrinhoCompras(Integer numeroCarrinho, Integer codProduto, Integer quantidade, Date dataEmissao) {
-        this.numeroCarrinho = numeroCarrinho;
-        this.codProduto = codProduto;
-        this.quantidade = quantidade;
-        this.dataEmissao = dataEmissao;
-    }
+    private List<ItemCarrinho> itens;
 
     public CarrinhoCompras() {
-
+        this.itens = new ArrayList<>();
     }
 
-    public Integer getNumeroCarrinho() {
-        return numeroCarrinho;
-    }
+    public class ItemCarrinho {
+        Integer codProduto;
+        String nomeProduto;
+        Integer quantidade;
+        Double precoUnitario;
 
-    public Integer getCodProduto() {
-        return codProduto;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        if (quantidade != null && quantidade >= 0) { // Permitir 0 para remover ou reduzir
+        public ItemCarrinho(Integer codProduto, String nomeProduto, Integer quantidade, Double precoUnitario) {
+            this.codProduto = codProduto;
+            this.nomeProduto = nomeProduto;
             this.quantidade = quantidade;
+            this.precoUnitario = precoUnitario;
+        }
+
+        public Double getSubtotal() {
+            return quantidade * precoUnitario;
+        }
+    }
+
+    // 1. Adicionar produto
+    public void adicionarProduto(Integer codProduto, String nomeProduto, Integer quantidade, Double precoUnitario) {
+        // Verifica se o produto já existe no carrinho
+        for (ItemCarrinho item : itens) {
+            if (item.codProduto.equals(codProduto)) {
+                item.quantidade += quantidade;
+                System.out.printf("Quantidade atualizada: %s (Total: %d)%n",
+                        nomeProduto, item.quantidade);
+                return;
+            }
+        }
+
+        // Se não existir, adiciona novo item
+        itens.add(new ItemCarrinho(codProduto, nomeProduto, quantidade, precoUnitario));
+        System.out.printf("%s adicionado ao carrinho%n", nomeProduto);
+    }
+
+    // 2. Atualizar quantidade
+    public void atualizarQuantidade(Integer codProduto, Integer novaQuantidade) {
+        for (ItemCarrinho item : itens) {
+            if (item.codProduto.equals(codProduto)) {
+                if (novaQuantidade <= 0) {
+                    itens.remove(item);
+                    System.out.println("Item removido do carrinho");
+                } else {
+                    item.quantidade = novaQuantidade;
+                    System.out.printf("Quantidade atualizada para %d%n", novaQuantidade);
+                }
+                return;
+            }
+        }
+        System.out.println("Produto não encontrado no carrinho");
+    }
+
+    // 3. Remover item
+    public void removerItem(Integer codProduto) {
+        if (itens.removeIf(item -> item.codProduto.equals(codProduto))) {
+            System.out.println("Item removido do carrinho");
         } else {
-            System.out.println("Atenção: Quantidade não pode ser negativa.");
+            System.out.println("Produto não encontrado no carrinho");
         }
     }
 
-    public Date getDataEmissao() {
-        return dataEmissao;
-    }
-
-    public void setDataEmissao(Date dataEmissao) {
-        if (dataEmissao != null) {
-            this.dataEmissao = dataEmissao;
-        } else {
-            System.out.println("Atenção: Data de emissão não pode ser nula.");
-        }
-    }
-
-
-    public Integer atualizarQuantidade(Integer quantidadeAdicional, Integer novaQuantidade) {
-        if (quantidadeAdicional == null || quantidadeAdicional <= 0) {
-            System.out.println("Erro: Quantidade adicional deve ser positiva.");
-            return -1; // Indica erro
-        }
-
-        this.quantidade += quantidadeAdicional;
-        System.out.println("Adicionado " + quantidadeAdicional + " unidades ao produto " + this.codProduto + ". Nova quantidade: " + this.quantidade);
-        return this.quantidade;
-
-    }
-
-    public void ItemCarrinho(Integer produto, Integer quantidade) {
-
-    }
-    public List<CarrinhoCompras> getItensDoPedido() {
-        List<CarrinhoCompras> itensDoPedido = Collections.emptyList();
-        return itensDoPedido; }
-
+    // 4. Exibir carrinho
     public void exibirCarrinho() {
+        if (itens.isEmpty()) {
+            System.out.println("Carrinho vazio");
+            return;
+        }
+
+        System.out.println("\n--- CARRINHO DE COMPRAS ---");
+        itens.forEach(item ->
+                System.out.printf("Cód: %d | %s | %d x R$%.2f = R$%.2f%n",
+                        item.codProduto,
+                        item.nomeProduto,
+                        item.quantidade,
+                        item.precoUnitario,
+                        item.getSubtotal()));
+
+        System.out.printf("TOTAL: R$%.2f%n", calcularTotal());
     }
 
+    // 5. Calcular total
+    public Double calcularTotal() {
+        return itens.stream()
+                .mapToDouble(ItemCarrinho::getSubtotal)
+                .sum();
+    }
+
+    // 6. Limpar carrinho
     public void limparCarrinho() {
+        itens.clear();
+        System.out.println("Carrinho limpo");
     }
 
-    public double calcularTotalCarrinho() {
-        return precoTotal;
-    }
-
-    public void removerProdutoCarrinho(Integer codProduto) {
+    public List<ItemCarrinho> getItens() {
+        return new ArrayList<>(itens); // Retorna cópia para evitar alterações externas
     }
 }
