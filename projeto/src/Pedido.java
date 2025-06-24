@@ -44,7 +44,6 @@ public class Pedido {
     public void setStatus(String status) { this.status = status; }
     public void setUfEnvio(String ufEnvio) { this.ufEnvio = ufEnvio; }
 
-    // Adiciona um item ao pedido
     public void adicionarItem(DetalhesPedido detalhe) {
         if (detalhe != null) {
             itensDoPedido.add(detalhe);

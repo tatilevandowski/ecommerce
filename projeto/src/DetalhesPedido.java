@@ -26,7 +26,6 @@ public class DetalhesPedido {
         this.codProduto = codProduto;
         this.quantidade = quantidade;
 
-        // Busca o produto na lista
         Produtos produto = buscarProdutoPorCodigo(codProduto);
 
         if (produto != null) {
@@ -40,8 +39,6 @@ public class DetalhesPedido {
             throw new IllegalArgumentException("Produto com código " + codProduto + " não encontrado");
         }
     }
-
-    // Métodos restantes...
 
     private Produtos buscarProdutoPorCodigo(Integer codProduto) {
         if (listaProdutos == null) {

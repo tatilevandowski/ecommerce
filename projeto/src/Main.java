@@ -39,7 +39,7 @@ public class Main {
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-            System.out.println("\nPressione Enter para continuar...");
+            System.out.println("Pressione Enter para continuar...");
             scanner.nextLine();
         } while (opcao != 0);
 
@@ -48,11 +48,10 @@ public class Main {
 
     private static void inicializarDados() {
         // Adiciona produtos diretamente aqui
-        produtos.add(new Produtos(101, "Camiseta Básica", 45.00, "M", "Branca"));
-        produtos.add(new Produtos(102, "Calça Jeans", 130.00, "42", "Azul Escuro"));
-        produtos.add(new Produtos(103, "Meia Esportiva", 15.00, "Único", "Preta"));
-        produtos.add(new Produtos(104, "Boné Estiloso", 60.00, "Único", "Vermelho"));
-        // Configura a lista de produtos na classe DetalhesPedido
+        produtos.add(new Produtos(101, "Colar em ouro 18k", 2045.00, "M", "Branca"));
+        produtos.add(new Produtos(102, "Brinco em outro 18k", 1030.00, "42", "Azul Escuro"));
+        produtos.add(new Produtos(103, "Par de Aliança de ouro 18k", 3015.00, "Único", "Preta"));
+        produtos.add(new Produtos(104, "Par de Aliança lisa de ouro 18k", 2760.00, "Único", "Vermelho"));
         DetalhesPedido.setListaProdutos(produtos);
         clientes.add(new Cliente("Ana Silva", "Rua A, 100", "SP", "ana@email.com", "11987654321"));
         clientes.add(new Cliente("Bruno Costa", "Av. B, 200", "RJ", "bruno@email.com", "21987654321"));

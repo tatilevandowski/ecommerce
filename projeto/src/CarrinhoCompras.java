@@ -28,7 +28,6 @@ public class CarrinhoCompras {
 
     // 1. Adicionar produto
     public void adicionarProduto(Integer codProduto, String nomeProduto, Integer quantidade, Double precoUnitario) {
-        // Verifica se o produto já existe no carrinho
         for (ItemCarrinho item : itens) {
             if (item.codProduto.equals(codProduto)) {
                 item.quantidade += quantidade;
@@ -38,12 +37,10 @@ public class CarrinhoCompras {
             }
         }
 
-        // Se não existir, adiciona novo item
         itens.add(new ItemCarrinho(codProduto, nomeProduto, quantidade, precoUnitario));
         System.out.printf("%s adicionado ao carrinho%n", nomeProduto);
     }
 
-    // 2. Atualizar quantidade
     public void atualizarQuantidade(Integer codProduto, Integer novaQuantidade) {
         for (ItemCarrinho item : itens) {
             if (item.codProduto.equals(codProduto)) {
@@ -60,7 +57,6 @@ public class CarrinhoCompras {
         System.out.println("Produto não encontrado no carrinho");
     }
 
-    // 3. Remover item
     public void removerItem(Integer codProduto) {
         if (itens.removeIf(item -> item.codProduto.equals(codProduto))) {
             System.out.println("Item removido do carrinho");
@@ -88,14 +84,12 @@ public class CarrinhoCompras {
         System.out.printf("TOTAL: R$%.2f%n", calcularTotal());
     }
 
-    // 5. Calcular total
     public Double calcularTotal() {
         return itens.stream()
                 .mapToDouble(ItemCarrinho::getSubtotal)
                 .sum();
     }
 
-    // 6. Limpar carrinho
     public void limparCarrinho() {
         itens.clear();
         System.out.println("Carrinho limpo");

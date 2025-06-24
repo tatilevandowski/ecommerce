@@ -40,7 +40,6 @@ public class Produtos {
                 codigoProduto, nomeProduto, precoProduto, tamanhoProduto, corProduto);
     }
 
-    // Métodos estáticos para operações
     public static Produtos cadastrarProduto(Scanner scanner) {
         System.out.println("\n--- CADASTRO DE NOVO PRODUTO ---");
         System.out.print("Código do Produto: ");
